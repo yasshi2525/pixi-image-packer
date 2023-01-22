@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "../../dist/bin",
+    "target": "ES6",
+    "module": "CommonJS",
+    "declaration": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["DOM"]
+  },
+  "include": ["index.ts"]
+}
