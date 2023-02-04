@@ -18,6 +18,20 @@ export const command = () =>
         demandOption: false,
         default: 18080
       },
+      timeout: {
+        type: 'number',
+        alias: 't',
+        description: 'timeout for crawling each image',
+        demandOption: false,
+        default: 30000
+      },
+      sync: {
+        type: 'boolean',
+        alias: 's',
+        description: 'end when crawling is completed',
+        demandOption: false,
+        default: false
+      },
       fontDir: {
         type: 'string',
         alias: 'f',
@@ -46,6 +60,9 @@ export const command = () =>
     .check(args => {
       if (args.port < 0 || args.port > 65535) {
         throw new Error('port number must be [0, 65535].')
+      }
+      if (args.timeout < 0) {
+        throw new Error('timeout must be greater than or equals 0')
       }
       return true
     })

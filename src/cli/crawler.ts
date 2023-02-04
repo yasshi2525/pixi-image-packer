@@ -4,23 +4,34 @@ import path from 'path'
 
 type CrawlerOption = {
   port: number,
-  outPath: string
+  outPath: string,
+  timeout?: number
 }
 
 export class Crawler {
   private readonly port: number
   private readonly outPath: string
+  private readonly timeout: number
+  private downloading: boolean
 
   constructor (opts: CrawlerOption) {
     this.port = opts.port
     this.outPath = opts.outPath
+    this.timeout = opts.timeout ?? 30000
+    this.downloading = false
   }
 
   async download () {
+    if (this.downloading) {
+      return Promise.resolve()
+    }
+    this.downloading = true
+    console.log('crawling images...')
     const browser = await puppeteer.launch({
-      headless: true
+      headless: true, timeout: this.timeout
     })
     const page = await browser.newPage()
+    page.setDefaultTimeout(this.timeout)
     await page.goto(`http://localhost:${this.port}/?download=1`)
     await page.waitForSelector('a')
 
@@ -52,5 +63,6 @@ export class Crawler {
     })
     await browser.close()
     console.log(`saved images to ${this.outPath}`)
+    this.downloading = false
   }
 }

@@ -78,14 +78,16 @@ pixi-image-packer-cli [options] <src-file>
 
 #### Options
 
-| パラメタ名               | 短縮名           | 説明             | デフォルト値              |
-|---------------------|---------------|----------------|---------------------|
-| `--outDir <path>`   | `-o <path>`   | 画像出力先ディレクトリ    | `.`                 |
-| `--port <number>`   | `-p <number>` | 描画確認用サーバのポート番号 | `18080`             |
-| `--fontDir <path>`  | `-f <path>`   | フォント格納ディレクトリ   | なし                  |
-| `--imageDir <path>` | `-i <path>`   | 元画像格納ディレクトリ    | なし                  |
-| `--lang`            |               | htmlの表示言語      | `ja`                |
-| `--title`           |               | htmlのタイトル      | `pixi-image-packer` |
+| パラメタ名               | 短縮名           | 説明               | デフォルト値              |
+|---------------------|---------------|------------------|---------------------|
+| `--outDir <path>`   | `-o <path>`   | 画像出力先ディレクトリ      | `.`                 |
+| `--port <number>`   | `-p <number>` | 描画確認用サーバのポート番号   | `18080`             |
+| `--timeout<number>` | `-t <number>` | 画像保存時のタイムアウト(ms) | `30000` (30秒)       |
+| `--fontDir <path>`  | `-f <path>`   | フォント格納ディレクトリ     | なし                  |
+| `--imageDir <path>` | `-i <path>`   | 元画像格納ディレクトリ      | なし                  |
+| `--lang <string>`   |               | htmlの表示言語        | `ja`                |
+| `--title <string>`  |               | htmlのタイトル        | `pixi-image-packer` |
+| `--sync`            | `-s`          | クロール後終了          | `false`             |
 
 指定例
 

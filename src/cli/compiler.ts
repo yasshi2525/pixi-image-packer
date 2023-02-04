@@ -23,7 +23,16 @@ export class SourceCompiler {
     this.bundleWatchers = []
   }
 
-  async start () {
+  async build () {
+    await esbuild.build({
+      entryPoints: [this.srcPath],
+      outfile: this.getBundlePath(),
+      bundle: true,
+      format: 'esm'
+    })
+  }
+
+  async watch () {
     // 空ファイルを作らないとファイルをwatchできない
     fs.writeFileSync(this.getBundlePath(), '')
     this.context = await esbuild.context({

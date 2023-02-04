@@ -5,7 +5,6 @@ import ws from 'ws'
 import * as fs from 'fs'
 
 type RenderServerOption = {
-  sigHandlers: (() => Promise<void>)[]
   bundlePath: string,
   fontDirs?: string[],
   imageDir?: string[],
