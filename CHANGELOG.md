@@ -1,5 +1,10 @@
 # 更新履歴
 
+## v0.2.4
+
+* Improvement
+  * AssetsParameters の要素が `null` だった場合、それ以降の描画は行わないよう修正
+
 ## v0.2.3
 
 * Other

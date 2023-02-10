@@ -15,4 +15,4 @@ export type MultiFrameAssets = SingleFrameAssets & {
   tick: (frame: number) => Container
 }
 
-export type AssetsParameters = (SingleFrameAssets | MultiFrameAssets)[]
+export type AssetsParameters = (SingleFrameAssets | MultiFrameAssets | null)[]
