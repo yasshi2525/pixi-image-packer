@@ -1,5 +1,10 @@
 # 更新履歴
 
+## v0.3.3
+
+* Improvement
+  * png画像を圧縮
+
 ## v0.3.2
 
 * BugFixes

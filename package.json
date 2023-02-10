@@ -1,8 +1,10 @@
 {
   "name": "@yasshi2525/pixi-image-packer",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "generates image using pixi.js and save them locally as image files.",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -29,6 +31,7 @@
     "url": "https://github.com/yasshi2525/pixi-image-packer.git"
   },
   "dependencies": {
+    "@squoosh/lib": "^0.5.3",
     "esbuild": "^0.17.3",
     "express": "^4.18.2",
     "pixi-filters": "^5.1.1",
