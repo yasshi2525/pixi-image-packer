@@ -47,7 +47,12 @@ export const watch = async (args: ReturnType<typeof command>) => {
     disposers.push(server.getDisposer())
     compiler.addBundleWatcher(() => server.reload())
 
-    const crawler = new Crawler({ outPath: args.outDir, port: args.port, timeout: args.timeout })
+    const crawler = new Crawler({
+      outPath: args.outDir,
+      port: args.port,
+      timeout: args.timeout,
+      onlyCreate: args.onlyCreate
+    })
     compiler.addBundleWatcher(() => crawler.download())
 
     console.log('waiting...')

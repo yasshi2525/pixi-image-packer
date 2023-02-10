@@ -26,7 +26,12 @@ export const sync = async (args: ReturnType<typeof command>) => {
   })
   await server.start()
 
-  const crawler = new Crawler({ outPath: args.outDir, port: args.port, timeout: args.timeout })
+  const crawler = new Crawler({
+    outPath: args.outDir,
+    port: args.port,
+    timeout: args.timeout,
+    onlyCreate: args.onlyCreate
+  })
   await crawler.download()
 
   await server.stop()
