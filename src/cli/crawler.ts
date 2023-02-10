@@ -5,19 +5,22 @@ import path from 'path'
 type CrawlerOption = {
   port: number,
   outPath: string,
-  timeout?: number
+  timeout?: number,
+  onlyCreate?: boolean
 }
 
 export class Crawler {
   private readonly port: number
   private readonly outPath: string
   private readonly timeout: number
+  private readonly onlyCreate: boolean
   private downloadQueue: number
 
   constructor (opts: CrawlerOption) {
     this.port = opts.port
     this.outPath = opts.outPath
     this.timeout = opts.timeout ?? 30000
+    this.onlyCreate = opts.onlyCreate ?? false
     this.downloadQueue = 0
   }
 
@@ -41,7 +44,7 @@ export class Crawler {
         return list.map(a => ({ name: a.download, data: a.href }))
       })
 
-      if (fs.existsSync(this.outPath)) {
+      if (fs.existsSync(this.outPath) && !this.onlyCreate) {
         fs.rmSync(this.outPath, { recursive: true, force: true })
       }
       ls.forEach(data => {

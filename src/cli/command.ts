@@ -55,6 +55,12 @@ export const command = () =>
         description: 'title of html file',
         demandOption: false,
         default: 'pixi-image-packer'
+      },
+      onlyCreate: {
+        type: 'boolean',
+        description: 'if set true, file in outDir is not deleted on starting',
+        demandOption: false,
+        default: false
       }
     })
     .check(args => {

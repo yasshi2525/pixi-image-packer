@@ -88,6 +88,7 @@ pixi-image-packer-cli [options] <src-file>
 | `--lang <string>`   |               | htmlの表示言語        | `ja`                |
 | `--title <string>`  |               | htmlのタイトル        | `pixi-image-packer` |
 | `--sync`            | `-s`          | クロール後終了          | `false`             |
+| `--onlyCreate`      |               | 既存ファイルを削除するか     | `false`             |
 
 指定例
 

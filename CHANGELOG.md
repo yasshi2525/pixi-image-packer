@@ -1,5 +1,10 @@
 # 更新履歴
 
+## v0.3.0
+
+* Features
+  * `--onlyCreate` を追加
+
 ## v0.2.4
 
 * Improvement
