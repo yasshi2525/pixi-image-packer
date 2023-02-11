@@ -6,6 +6,7 @@ import { SourceCompiler } from './compiler'
 import { RenderServer } from './server'
 import { Crawler } from './crawler'
 import { ImagePool } from '@squoosh/lib'
+import { compress } from './compress'
 
 export const sync = async (args: ReturnType<typeof command>) => {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pixi-image-packer-cli'))
@@ -37,14 +38,7 @@ export const sync = async (args: ReturnType<typeof command>) => {
 
   console.log('compressing...')
   const imagePool = new ImagePool(cpus().length)
-  await Promise.all(fs.readdirSync(args.outDir).map(async file => {
-    const image = imagePool.ingestImage(fs.readFileSync(path.join(args.outDir, file)))
-    await image.encode({ oxipng: { level: 85 } })
-    const result = image.encodedWith.oxipng
-    if (result) {
-      fs.writeFileSync(path.join(args.outDir, file), result.binary)
-    }
-  }))
+  await compress(args.outDir, imagePool)
   await imagePool.close()
   console.log('compressed')
 
