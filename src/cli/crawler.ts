@@ -32,7 +32,7 @@ export class Crawler {
     console.log('crawling images...')
     try {
       const browser = await puppeteer.launch({
-        headless: true, timeout: this.timeout
+        headless: 'new', timeout: this.timeout
       })
       const page = await browser.newPage()
       page.setDefaultTimeout(this.timeout)
