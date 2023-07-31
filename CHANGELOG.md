@@ -1,5 +1,11 @@
 # 更新履歴
 
+## v0.3.5
+
+* Other
+  * puppeteer の headless モードを最新に追従
+  * 依存パッケージのバージョンアップ
+
 ## v0.3.4
 
 * BugFixes
