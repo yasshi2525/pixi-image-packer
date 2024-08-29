@@ -14,8 +14,8 @@ const grid = (dataset: MultiFrameAssets, alpha: number = 0.75) => {
   for (let y = 0; y < dataset.height / height; y++) {
     for (let x = 0; x < dataset.width / width; x++) {
       const g = new Graphics()
-      g.lineStyle(1, 0xffffff, alpha)
-      g.drawRect(x * width + 1, y * height + 1, width - 2, height - 2)
+      g.rect(x * width + 1, y * height + 1, width - 2, height - 2)
+      g.stroke({ width: 1, color: 0xffffff, alpha })
       dataset.data.addChild(g)
     }
   }
@@ -26,12 +26,11 @@ const createDownloadDiv = (app: Application, name: string) => {
   const div = document.createElement('div')
   const image = document.createElement('img')
 
-  image.src = app.view.toDataURL!()
+  image.src = app.canvas.toDataURL()
 
   const a = document.createElement('a')
   a.append(image)
-  // @ts-ignore
-  a.href = app.view.toDataURL()
+  a.href = app.canvas.toDataURL()
   a.download = `${name}.png`
   div.appendChild(a)
   return div
@@ -47,7 +46,7 @@ const createDownloadGlyph = (glyph: Object, name: string) => {
   return a
 }
 
-export const draw = (app: Application, asset: SingleFrameAssets | MultiFrameAssets) => {
+export const draw = async (app: Application, asset: SingleFrameAssets | MultiFrameAssets) => {
   if (mode() === 'view' && isMulti(asset)) {
     asset.data = grid(asset).data
   }
@@ -61,7 +60,7 @@ export const draw = (app: Application, asset: SingleFrameAssets | MultiFrameAsse
   app.stage.removeChildren()
 
   if (mode() === 'view' && isMulti(asset)) {
-    const appMulti = application()
+    const appMulti = await application()
     appMulti.renderer.resize(asset.srcWidth, asset.srcHeight)
     let frames = 0
     appMulti.ticker.maxFPS = 30
@@ -73,6 +72,6 @@ export const draw = (app: Application, asset: SingleFrameAssets | MultiFrameAsse
         frames = 0
       }
     })
-    document.body.appendChild(appMulti.view as HTMLCanvasElement)
+    document.body.appendChild(appMulti.canvas)
   }
 }
