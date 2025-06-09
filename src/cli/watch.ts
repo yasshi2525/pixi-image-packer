@@ -1,11 +1,10 @@
 import { command } from './command'
 import fs from 'fs'
 import path from 'path'
-import os, { cpus } from 'os'
+import os from 'os'
 import { SourceCompiler } from './compiler'
 import { RenderServer } from './server'
 import { Crawler } from './crawler'
-import { ImagePool } from '@squoosh/lib'
 import { compress } from './compress'
 
 export const watch = async (args: ReturnType<typeof command>) => {
@@ -55,11 +54,9 @@ export const watch = async (args: ReturnType<typeof command>) => {
       timeout: args.timeout,
       onlyCreate: args.onlyCreate
     })
-    const imagePool = new ImagePool(cpus().length)
-    disposers.push(async () => await imagePool.close())
     compiler.addBundleWatcher(async () => {
       await crawler.download()
-      await compress(args.outDir, imagePool)
+      await compress(args.outDir)
     })
 
     console.log('waiting...')

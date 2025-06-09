@@ -31,7 +31,6 @@
     "url": "https://github.com/yasshi2525/pixi-image-packer.git"
   },
   "dependencies": {
-    "@squoosh/lib": "^0.5.3",
     "esbuild": "^0.23.1",
     "express": "^4.19.2",
     "pixi-filters": "^6.0.4",
