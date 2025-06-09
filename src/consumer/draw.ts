@@ -64,9 +64,10 @@ export const draw = async (app: Application, asset: SingleFrameAssets | MultiFra
     appMulti.renderer.resize(asset.srcWidth, asset.srcHeight)
     let frames = 0
     appMulti.ticker.maxFPS = 30
-    appMulti.ticker.add(() => {
+    appMulti.ticker.add(async () => {
       appMulti.stage.removeChildren()
-      appMulti.stage.addChild(asset.tick(frames))
+      appMulti.stage.addChild(await asset.tick(frames))
+      appMulti.renderer.render(appMulti.stage)
       frames++
       if (frames >= asset.frames) {
         frames = 0

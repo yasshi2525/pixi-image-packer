@@ -5,7 +5,7 @@ import { draw } from './draw'
 import { Assets } from 'pixi.js'
 
 type ConsumerOption = {
-  assets: () => Promise<AssetsParameters>,
+  assets: () => AssetsParameters | Promise<AssetsParameters>,
   fonts: { name: string, url: string }[],
   images: { url: string }[]
   port: number
