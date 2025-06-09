@@ -39,6 +39,10 @@ jobs:
               if: steps.chrome-cache-restore.outputs.cache-hit != 'true'
             - name: Run tests
               run: npm test
+            - name: Rebuild code
+              run: |
+                npm run clean
+                npm run build
             - name: Package library
               run: npm pack
             - name: Publish package
