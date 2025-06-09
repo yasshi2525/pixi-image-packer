@@ -20,12 +20,11 @@ const main = async (opts: ConsumerOption) => {
     BitmapFont.install({ name: `${font.name}-bitmap`, style: { fontFamily: font.name } })
   }
   const assets = await opts.assets()
-  await Promise.all(assets.map(async a => {
-    if (a == null) {
-      return
-    }
-    await draw(app, a)
-  }))
+  // null 出現以降は無視
+  if (assets.indexOf(null) !== -1) {
+    assets.splice(assets.indexOf(null))
+  }
+  await Promise.all(assets.map(async a => await draw(app, a!)))
 }
 
 export = main
