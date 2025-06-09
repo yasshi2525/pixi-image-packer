@@ -16,5 +16,6 @@ export const application = async () => {
       antialias: true
     })
   }
+  app.stage.eventMode = 'none' // bug? https://github.com/pixijs/pixijs/issues/9495
   return app
 }
