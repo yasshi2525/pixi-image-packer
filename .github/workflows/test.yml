@@ -36,5 +36,20 @@ jobs:
               run: npm run lint
             - name: Build code
               run: npm run build
+            - name: Restore headless browser
+              uses: actions/cache/restore@v4
+              id: chrome-cache-restore
+              with:
+                path: /home/runner/.cache/puppeteer
+                key: puppeteer-node${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
+            - name: Install headless browser
+              run: npx puppeteer browsers install chrome
+              if: steps.chrome-cache-restore.outputs.cache-hit != 'true'
+            - name: Save headless browser
+              uses: actions/cache/save@v4
+              if: always() && steps.chrome-cache-restore.outputs.cache-hit != 'true'
+              with:
+                path: /home/runner/.cache/puppeteer
+                key: puppeteer-node${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
             - name: Run tests
               run: npm test

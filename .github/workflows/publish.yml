@@ -28,6 +28,15 @@ jobs:
               run: npm run lint
             - name: Build code
               run: npm run build
+            - name: Restore headless browser
+              uses: actions/cache@v4
+              id: chrome-cache-restore
+              with:
+                path: /home/runner/.cache/puppeteer
+                key: puppeteer-node22.x-${{ hashFiles('package-lock.json') }}
+            - name: Install headless browser
+              run: npx puppeteer browsers install chrome
+              if: steps.chrome-cache-restore.outputs.cache-hit != 'true'
             - name: Run tests
               run: npm test
             - name: Package library
