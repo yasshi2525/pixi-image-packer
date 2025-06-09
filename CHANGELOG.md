@@ -5,6 +5,17 @@
 * Features
   * pixi.js のバージョンを 7.x から 8.x に更新
 
+## v0.3.7
+
+* Other
+  * 依存パッケージのバージョンアップ
+
+## v0.3.6
+
+* Other
+  * puppeteer の headless モードを最新に追従
+  * 依存パッケージのバージョンアップ
+
 ## v0.3.5
 
 * Other
