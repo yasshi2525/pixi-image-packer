@@ -12,7 +12,7 @@ export type MultiFrameAssets = SingleFrameAssets & {
   frames: number,
   srcWidth: number,
   srcHeight: number,
-  tick: (frame: number) => Container
+  tick: (frame: number) => Container | Promise<Container>
 }
 
 export type AssetsParameters = (SingleFrameAssets | MultiFrameAssets | null)[]

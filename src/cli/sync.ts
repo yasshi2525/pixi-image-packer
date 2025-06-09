@@ -1,11 +1,10 @@
 import { command } from './command'
 import fs from 'fs'
 import path from 'path'
-import os, { cpus } from 'os'
+import os from 'os'
 import { SourceCompiler } from './compiler'
 import { RenderServer } from './server'
 import { Crawler } from './crawler'
-import { ImagePool } from '@squoosh/lib'
 import { compress } from './compress'
 
 export const sync = async (args: ReturnType<typeof command>) => {
@@ -37,9 +36,7 @@ export const sync = async (args: ReturnType<typeof command>) => {
   await crawler.download()
 
   console.log('compressing...')
-  const imagePool = new ImagePool(cpus().length)
-  await compress(args.outDir, imagePool)
-  await imagePool.close()
+  await compress(args.outDir)
   console.log('compressed')
 
   await server.stop()

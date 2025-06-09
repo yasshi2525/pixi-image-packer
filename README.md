@@ -8,62 +8,77 @@ pixi.js でレンダリングした画像データをローカルファイルシ
 
 ### 画像生成スクリプトの作成
 
-`Promise<AssetsParameters>` を返す関数を定義し、`export = <関数名>` としてください。  
+> [!IMPORTANT]
+> スクリプトは Typescript で書かれている前提です
+
+`AssetsParameters` または `Promise<AssetsParameters>` を返す関数を定義し、`export = <関数名>` としてください。  
 後述の `pixi-image-packer-cli` コマンドを利用すると、実行時・本スクリプト変更時に描画内容をローカルファイルシステムに保存します。
 
 ```typescript
-import {AssetsParameters } from 'pixi-image-packer';
-import * as PIXI from 'pixi.js'
-import {GlowFilter} from "pixi-filters";
+import { AssetsParameters } from "@yasshi2525/pixi-image-packer";
+import { Assets, Container, Graphics, Sprite, Text } from "pixi.js";
 
 const main = async (): Promise<AssetsParameters> => {
   return [
-    { name: 'graphics', width: 50, height: 50, data: generateCircle() },
-    { name: 'sprite', width: 50, height: 50, data: await generateSprite() },
-    { name: 'animation', width: 500, height: 50, srcWidth: 50, srcHeight: 50, frames: 10,
-      data: await generateAnimationSheet(), tick: (i) => generateAnimation(i) }
-  ]
-}
+    { name: "graphics", width: 50, height: 50, data: generateCircle() },
+    { name: "sprite", width: 50, height: 50, data: await generateSprite() },
+    {
+      name: "animation",
+      width: 500,
+      height: 50,
+      srcWidth: 50,
+      srcHeight: 50,
+      frames: 10,
+      data: await generateAnimationSheet(),
+      tick: async (i) => await generateAnimation(i),
+    },
+    { name: "text", width: 100, height: 50, data: generateText() },
+  ];
+};
 
 const generateCircle = () => {
-  const data = new PIXI.Graphics()
-  data.beginFill(0x448866)
-  data.lineStyle(5, 0x886644)
-  data.drawCircle(25, 25, 25)
-  data.endFill()
-  data.filters = [new GlowFilter()]
-  return data
-}
+  const data = new PIXI.Graphics();
+  data.circle(25, 25, 25);
+  data.fill(0x448866);
+  data.stroke({ width: 5, color: 0x886644 });
+  return data;
+};
 
 const generateSprite = () => {
-  const data = PIXI.Sprite.from('/images/flower.png')
-  data.localTransform.scale(0.125, 0.125)
-  data.filters = [new GlowFilter()]
-  return data
-}
+  const data = new Sprite(await Assets.load("/images/sample.png"));
+  return data;
+};
 
 const generateAnimationSheet = async () => {
-  await PIXI.Texture.fromURL('/images/flower.png')
-  const data = new PIXI.Container()
+  const data = new PIXI.Container();
   for (let i = 0; i < 10; i++) {
-    const item = await generateAnimation(i)
-    item.localTransform.translate(i * 50, 0)
-    data.addChild(item)
+    const item = await generateAnimation(i);
+    item.x += i * 50;
+    data.addChild(item);
   }
-  return data
-}
+  return data;
+};
 
-const generateAnimation = (tick: number) => {
-  const data = PIXI.Sprite.from('/images/flower.png')
-  data.anchor.set(0.5, 0.5)
-  data.localTransform
-    .rotate(tick * 0.1 * Math.PI)
-    .scale(0.125, 0.125)
-  data.filters = [new GlowFilter()]
-  return data
-}
+const generateAnimation = async (tick: number) => {
+  const data = new Sprite(await Assets.load("/images/sample.png"));
+  data.pivot.set(25, 25);
+  data.x = 25;
+  data.y = 25;
+  data.rotation = tick * 0.1 * Math.PI;
+  return data;
+};
 
-export = main
+const generateText = () => {
+  const data = new BitmapText({
+    text: "Sample",
+    style: new TextStyle({
+      fontFamily: "Mplus1-Regular",
+    }),
+  });
+  return data;
+};
+
+export = main;
 ```
 
 ## Reference 
@@ -141,7 +156,7 @@ pixi-image-packer-cli -o out -i assets/images -f assets/fonts src/index.ts
     frames: number,       // フレーム数
     srcWidth: number,     // フレームごとの画像サイズ幅
     srcHeight: number,    // フレームごとの画像高さ
-    tick: (frame: number) => Container // アニメーション関数
+    tick: (frame: number) => Container | Promise<Container> // アニメーション関数
 }
 ```
 
@@ -153,3 +168,10 @@ pixi-image-packer-cli -o out -i assets/images -f assets/fonts src/index.ts
 ## License
 
 MIT License
+
+### About Fonts
+
+> [!NOTICE]
+> This notice is for the source code project (GitHub), not for the npm package.
+
+[This source code](https://github.com/yasshi2525/pixi-image-packer) includes [M+ FONTS](https://mplusfonts.github.io/), which are licesnsed under the [SIL Open Font License](https://openfontlicense.org/), Version 1.1. The font files are redistributed unmodified under the same license. See [OFL.txt](./OFL.txt) for details.

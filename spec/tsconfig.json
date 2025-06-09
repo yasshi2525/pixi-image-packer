@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "types": ["node", "jest"],
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts"]
+}

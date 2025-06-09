@@ -1,6 +1,6 @@
 {
   "name": "@yasshi2525/pixi-image-packer",
-  "version": "0.3.7",
+  "version": "0.4.0",
   "description": "generates image using pixi.js and save them locally as image files.",
   "files": [
     "dist"
@@ -12,8 +12,9 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "lint": "eslint \"src/**/*.ts\"",
-    "build": "tsc && tsc --project src/cli/tsconfig.json && esbuild src/consumer/index.ts --bundle --format=esm --outfile=dist/bin/consumer.js && node -e \"require('fs').copyFileSync('src/bin/pixi-image-packer-cli.js', './dist/bin/pixi-image-packer-cli.js')\""
+    "lint": "eslint .",
+    "build": "tsc && tsc --project src/cli/tsconfig.json && tsc --project src/consumer/tsconfig.json && node -e \"require('fs').copyFileSync('src/bin/pixi-image-packer-cli.js', './dist/bin/pixi-image-packer-cli.js')\"",
+    "test": "jest"
   },
   "keywords": [
     "pixi.js"
@@ -32,24 +33,23 @@
     "url": "https://github.com/yasshi2525/pixi-image-packer.git"
   },
   "dependencies": {
-    "@squoosh/lib": "^0.5.3",
-    "esbuild": "^0.24.0",
-    "express": "^4.21.1",
-    "pixi-filters": "^5.3.0",
-    "pixi.js": "^7.4.2",
-    "puppeteer": "^23.6.0",
+    "esbuild": "^0.25.5",
+    "express": "^5.1.0",
+    "pixi.js": "^8.10.1",
+    "puppeteer": "^24.10.0",
     "rimraf": "^6.0.1",
-    "ws": "^8.18.0",
+    "ws": "^8.18.2",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/ws": "^8.5.12",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^29.5.14",
+    "@types/ws": "^8.18.1",
     "@types/yargs": "^17.0.33",
-    "@typescript-eslint/eslint-plugin": "^8.11.0",
-    "@typescript-eslint/parser": "^8.11.0",
-    "eslint": "^8.57.1",
-    "eslint-config-standard": "^17.1.0",
-    "typescript": "^5.6.3"
+    "eslint": "^9.28.0",
+    "jest": "^29.7.0",
+    "neostandard": "^0.12.1",
+    "ts-jest": "^29.3.4",
+    "typescript": "^5.8.3"
   }
 }
