@@ -12,7 +12,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc && tsc --project src/cli/tsconfig.json && esbuild src/consumer/index.ts --bundle --format=esm --outfile=dist/bin/consumer.js && node -e \"require('fs').copyFileSync('src/bin/pixi-image-packer-cli.js', './dist/bin/pixi-image-packer-cli.js')\""
+    "build": "tsc && tsc --project src/cli/tsconfig.json && tsc --project src/consumer/tsconfig.json && node -e \"require('fs').copyFileSync('src/bin/pixi-image-packer-cli.js', './dist/bin/pixi-image-packer-cli.js')\""
   },
   "keywords": [
     "pixi.js"

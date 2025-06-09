@@ -1,3 +1,4 @@
+import esbuild from 'esbuild'
 import express, { Express } from 'express'
 import { Server } from 'http'
 import path from 'path'
@@ -42,6 +43,12 @@ export class RenderServer {
   private wsServer?: ws.WebSocketServer
 
   constructor (opts: RenderServerOption) {
+    esbuild.buildSync({
+      entryPoints: [path.join(__dirname, '..', 'consumer', 'index.js')],
+      bundle: true,
+      format: 'esm',
+      outfile: path.join(__dirname, 'consumer.js')
+    })
     this.bundlePath = opts.bundlePath
     this.fontPaths = (opts.fontDirs ?? []).reduce((prev, dir) =>
       prev.concat(fs.readdirSync(dir).map(pth => ({
