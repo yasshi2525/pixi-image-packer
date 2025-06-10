@@ -2,7 +2,7 @@ import esbuild from 'esbuild'
 import express, { Express } from 'express'
 import { Server } from 'http'
 import path from 'path'
-import ws from 'ws'
+import * as ws from 'ws'
 import * as fs from 'fs'
 
 type RenderServerOption = {
@@ -44,10 +44,10 @@ export class RenderServer {
 
   constructor (opts: RenderServerOption) {
     esbuild.buildSync({
-      entryPoints: [path.join(__dirname, '..', 'consumer', 'index.js')],
+      entryPoints: [path.join(import.meta.dirname, '..', 'consumer', 'index.js')],
       bundle: true,
       format: 'esm',
-      outfile: path.join(__dirname, 'consumer.js')
+      outfile: path.join(import.meta.dirname, 'consumer.js')
     })
     this.bundlePath = opts.bundlePath
     this.fontPaths = (opts.fontDirs ?? []).reduce((prev, dir) =>
@@ -75,7 +75,7 @@ export class RenderServer {
       res.sendFile(this.bundlePath)
     })
     this.app.get(CONSUMER_ENDPOINT, (req, res) => {
-      res.sendFile(path.join(__dirname, 'consumer.js'))
+      res.sendFile(path.join(import.meta.dirname, 'consumer.js'))
     })
     this.fontPaths.forEach(f => {
       this.app.get(f.url, (req, res) => {

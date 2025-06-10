@@ -3,7 +3,7 @@
     "strict": true,
     "outDir": "../../dist/bin",
     "target": "ES6",
-    "module": "CommonJS",
+    "module": "nodenext",
     "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,

@@ -1,7 +1,7 @@
 import { Application, Graphics } from 'pixi.js'
-import { MultiFrameAssets, SingleFrameAssets } from './assets'
-import { mode } from './mode'
-import { application } from './application'
+import { MultiFrameAssets, SingleFrameAssets } from './assets.js'
+import { mode } from './mode.js'
+import { application } from './application.js'
 
 const isMulti = (obj: SingleFrameAssets | MultiFrameAssets): obj is MultiFrameAssets => {
   return 'frames' in obj

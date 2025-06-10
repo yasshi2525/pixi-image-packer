@@ -1,1 +1,1 @@
-export { SingleFrameAssets, MultiFrameAssets, AssetsParameters } from './consumer/assets'
+export { SingleFrameAssets, MultiFrameAssets, AssetsParameters } from './consumer/assets.js'

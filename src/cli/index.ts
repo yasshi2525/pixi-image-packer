@@ -1,6 +1,6 @@
-import { command } from './command'
-import { watch } from './watch'
-import { sync } from './sync'
+import { command } from './command.js'
+import { watch } from './watch.js'
+import { sync } from './sync.js'
 
 const main = async () => {
   const args = command()
@@ -12,4 +12,4 @@ const main = async () => {
   }
 }
 
-export = main
+export default main
