@@ -15,7 +15,7 @@ export class SourceCompiler {
   private readonly outPath: string
   private context?: BuildContext
   private watcher?: FSWatcher
-  private readonly bundleWatchers:(() => void)[]
+  private readonly bundleWatchers: (() => void)[]
 
   constructor (opts: SourceCompilerOptions) {
     this.srcPath = opts.srcPath

@@ -1,7 +1,7 @@
-import { AssetsParameters } from './assets'
-import { application } from './application'
-import { HotReload } from './hotreload'
-import { draw } from './draw'
+import { AssetsParameters } from './assets.js'
+import { application } from './application.js'
+import { HotReload } from './hotreload.js'
+import { draw } from './draw.js'
 import { Assets } from 'pixi.js'
 
 type ConsumerOption = {
@@ -28,4 +28,4 @@ const main = async (opts: ConsumerOption) => {
   await Promise.all(assets.map(async a => await draw(app, a!)))
 }
 
-export = main
+export default main

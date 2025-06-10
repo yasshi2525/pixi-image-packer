@@ -1,11 +1,11 @@
-import { command } from './command'
+import { command } from './command.js'
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
-import { SourceCompiler } from './compiler'
-import { RenderServer } from './server'
-import { Crawler } from './crawler'
-import { compress } from './compress'
+import { SourceCompiler } from './compiler.js'
+import { RenderServer } from './server.js'
+import { Crawler } from './crawler.js'
+import { compress } from './compress.js'
 
 export const sync = async (args: ReturnType<typeof command>) => {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pixi-image-packer-cli'))

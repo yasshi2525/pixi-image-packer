@@ -1,5 +1,5 @@
 import { Application } from 'pixi.js'
-import { mode } from './mode'
+import { mode } from './mode.js'
 
 export const application = async () => {
   const app = new Application()
