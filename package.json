@@ -1,6 +1,6 @@
 {
   "name": "@yasshi2525/pixi-image-packer",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "generates image using pixi.js and save them locally as image files.",
   "files": [
     "dist"
