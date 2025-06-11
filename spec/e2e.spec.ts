@@ -16,13 +16,11 @@ describe('e2e', () => {
 
   it('should save files', async () => {
     const exe = require('../package.json').bin['pixi-image-packer-cli'] as string
-    const out = execSync(`node "${exe}" -o "${tmpDir}" -f "spec/e2e/fonts" -i "spec/e2e/images" -s "spec/e2e/src/index.ts"`)
-    console.log(out.toString())
+    execSync(`node "${exe}" -o "${tmpDir}" -f "spec/e2e/fonts" -i "spec/e2e/images" -s "spec/e2e/src/index.ts"`)
     expect(fs.statSync(path.join(tmpDir, 'graphics.png')).size).toBeGreaterThan(0)
     expect(fs.statSync(path.join(tmpDir, 'sprite.png')).size).toBeGreaterThan(0)
     expect(fs.statSync(path.join(tmpDir, 'animation.png')).size).toBeGreaterThan(0)
     expect(fs.statSync(path.join(tmpDir, 'text.png')).size).toBeGreaterThan(0)
-    fs.readdirSync(tmpDir).forEach(f => console.log(f))
   })
 
   it('trim null', () => {

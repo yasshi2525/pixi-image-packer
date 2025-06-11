@@ -1,5 +1,6 @@
 'use strict'
 
 module.exports = require('neostandard')({
-  ignores: ['dist']
+  ignores: ['dist'],
+  ts: true
 })
