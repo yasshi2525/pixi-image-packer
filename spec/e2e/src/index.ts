@@ -43,6 +43,7 @@ const generateText = () => {
     style: new TextStyle({
       fontFamily: 'Mplus1-Regular',
       fill: 0xff8888,
+      stroke: { color: 0x00ff00, width: 2 },
       fontSize: 36
     })
   })

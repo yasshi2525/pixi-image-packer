@@ -1,4 +1,3 @@
-import esbuild from 'esbuild'
 import express, { Express } from 'express'
 import { Server } from 'http'
 import path from 'path'
@@ -25,8 +24,7 @@ type ImageMapping = {
   path: string
 }
 
-const PRODUCER_ENDPOINT = '/producer.js'
-const CONSUMER_ENDPOINT = '/consumer.js'
+const SCRIPT_ENDPOINT = '/index.js'
 const CSS_ENDPOINT = '/app.css'
 const FONTS_ENDPOINT = '/fonts/'
 const IMAGES_ENDPOINT = '/images/'
@@ -43,12 +41,6 @@ export class RenderServer {
   private wsServer?: ws.WebSocketServer
 
   constructor (opts: RenderServerOption) {
-    esbuild.buildSync({
-      entryPoints: [path.join(__dirname, '..', 'consumer', 'index.js')],
-      bundle: true,
-      format: 'esm',
-      outfile: path.join(__dirname, 'consumer.js')
-    })
     this.bundlePath = opts.bundlePath
     this.fontPaths = (opts.fontDirs ?? []).reduce((prev, dir) =>
       prev.concat(fs.readdirSync(dir).map(pth => ({
@@ -71,11 +63,8 @@ export class RenderServer {
     this.app.get(CSS_ENDPOINT, (req, res) => {
       res.send(this.cssTemplate())
     })
-    this.app.get(PRODUCER_ENDPOINT, (req, res) => {
+    this.app.get(SCRIPT_ENDPOINT, (req, res) => {
       res.sendFile(this.bundlePath)
-    })
-    this.app.get(CONSUMER_ENDPOINT, (req, res) => {
-      res.sendFile(path.join(__dirname, 'consumer.js'))
     })
     this.fontPaths.forEach(f => {
       this.app.get(f.url, (req, res) => {
@@ -136,12 +125,10 @@ export class RenderServer {
         <link rel="stylesheet" type="text/css" href="${CSS_ENDPOINT}" />
         <title>${this.title}</title>
         <script type="module">
-            import producer from '${PRODUCER_ENDPOINT}'
-            import consumer from '${CONSUMER_ENDPOINT}'
+            import main from '${SCRIPT_ENDPOINT}'
             (async () => {
-                await consumer({
+                await main({
                     port: ${this.port},
-                    assets: producer,
                     fonts: ${JSON.stringify(this.fontPaths)},
                     images: ${JSON.stringify(this.imagePaths)}
                 })
